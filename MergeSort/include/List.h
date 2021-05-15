@@ -1,28 +1,28 @@
 #pragma once
 
+
 template <typename T>
 class List
 {
 public:
 	List();
 
-
-	~List();
+	class Node {
+	public:
+		Node(T Data);
+		T data;
+	private:
+		Node* next;
+		Node* prev;
+		friend List<T>;
+	};
 
 protected:
 	
-	class Node {
-	public:
-		T data;
-		Node* next;
-		Node* prev;
-
-		Node(T Data);
-	};
-
 	Node* head;
 	Node* tail;
 	int size;
+
 };
 
 template<typename T>
