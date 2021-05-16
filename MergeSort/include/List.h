@@ -11,16 +11,17 @@ public:
 
 	void push_back(T data);
 
-
-protected:
 	class Node {
 	public:
 		Node(T Data);
 		T data;
+	private:	
 		Node* next;
 		Node* prev;
 		friend List<T>;
 	};
+
+protected:
 	
 	Node* head;
 	Node* tail;

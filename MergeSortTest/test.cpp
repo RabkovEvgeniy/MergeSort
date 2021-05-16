@@ -20,8 +20,9 @@ public:
 		return this->size;
 	}
 
-	
 };
+
+
 TEST(List, constructor) {
   
 	//Arrange
@@ -38,4 +39,58 @@ TEST(List, constructor) {
 	EXPECT_EQ(real_size, exp_size);
 	EXPECT_TRUE(head_is_nullptr);
 	EXPECT_TRUE(tail_is_nullptr);
+}
+
+TEST(List, push_front) {
+
+	//Arrange
+	TestList<int> list;
+	const int exp_size_0 = 1;
+	const int exp_size_1 = 2;
+	int real_size_0;
+	int real_size_1;
+	bool tail_is_nullptr, head_is_nullptr;
+	
+	//Act
+	list.push_front(1);
+	tail_is_nullptr = list.tail_is_nullptr();
+	head_is_nullptr = list.head_is_nullptr();
+	real_size_0 = list.get_size();
+	
+	list.push_front(2);
+	real_size_1 = list.get_size();
+
+	//Assert
+	EXPECT_EQ(real_size_0, exp_size_0);
+	EXPECT_FALSE(head_is_nullptr);
+	EXPECT_FALSE(tail_is_nullptr);
+
+	EXPECT_EQ(real_size_1, exp_size_1);
+}
+
+TEST(List, push_back) {
+
+	//Arrange
+	TestList<int> list;
+	const int exp_size_0 = 1;
+	const int exp_size_1 = 2;
+	int real_size_0;
+	int real_size_1;
+	bool tail_is_nullptr, head_is_nullptr;
+
+	//Act
+	list.push_back(1);
+	tail_is_nullptr = list.tail_is_nullptr();
+	head_is_nullptr = list.head_is_nullptr();
+	real_size_0 = list.get_size();
+
+	list.push_back(2);
+	real_size_1 = list.get_size();
+
+	//Assert
+	EXPECT_EQ(real_size_0, exp_size_0);
+	EXPECT_FALSE(head_is_nullptr);
+	EXPECT_FALSE(tail_is_nullptr);
+
+	EXPECT_EQ(real_size_1, exp_size_1);
 }
