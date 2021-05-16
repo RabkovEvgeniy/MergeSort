@@ -10,8 +10,8 @@ public:
 	void push_front(T data);
 
 	void push_back(T data);
+	
 	void pop_back();
-
 	void pop_front();
 
 	int get_size();
@@ -30,6 +30,10 @@ public:
 	};
 
 	Node* get_head();
+
+	Node* get_first_node();
+
+	void emplace_back_node(Node* ptr);
 
 	Node* get_tail();
 
@@ -163,6 +167,47 @@ inline List<T>::~List()
 template<typename T>
 inline typename List<T>::Node* List<T>::get_head(){
 	return head;
+}
+
+template<typename T>
+inline typename List<T>::Node* List<T>::get_first_node()
+{
+	Node* ptr = head;
+	if (size == 1)
+	{
+		tail = nullptr;
+		head = nullptr;
+	}
+	else if (size != 0)
+	{
+		head = ptr->next;
+		ptr->next->prev = nullptr;
+	}
+	else
+	{
+		throw 2;
+	}
+	size--;
+	return ptr;
+}
+
+template<typename T>
+inline void List<T>::emplace_back_node(Node* new_node)
+{
+	if (size != 0)
+	{
+		new_node->next = nullptr;
+		new_node->prev = tail;
+		tail = new_node;
+	}
+	else
+	{
+		head = new_node;
+		tail = new_node;
+		new_node->next = nullptr;
+		new_node->prev = nullptr;
+	}
+	size++;
 }
 
 template<typename T>
