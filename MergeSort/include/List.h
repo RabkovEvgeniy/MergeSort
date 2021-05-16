@@ -107,8 +107,9 @@ inline void List<T>::pop_back()
 	}
 	else
 	{
-		throw std::string("try pop_back in empty list");
+		throw 1;
 	}
+	size--;
 }
 
 template<typename T>
@@ -129,6 +130,7 @@ inline void List<T>::pop_front()
 	}
 	else
 	{
-		throw std::string("try pop_front in empty list");
+		throw 2;
 	}
+	size--;
 }
