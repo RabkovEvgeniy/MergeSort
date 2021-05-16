@@ -26,13 +26,13 @@ public:
 		friend List<T>;
 	};
 
-	List<T>::Node* get_head();
+	Node* get_head();
 
-	List<T>::Node* get_tail();
+	Node* get_tail();
 
-	static List<T>::Node* get_next_node_ptr(List<T>::Node* ptr);
+	static Node* get_next_node_ptr(Node* ptr);
 
-	static List<T>::Node* get_prev_node_ptr(List<T>::Node* ptr);
+	static Node* get_prev_node_ptr(Node* ptr);
 
 protected:
 	
@@ -152,19 +152,18 @@ inline List<T>::~List()
 }
 
 template<typename T>
-inline List<T>::Node* List<T>::get_head()
-{
+inline typename List<T>::Node* List<T>::get_head(){
 	return head;
 }
 
 template<typename T>
-inline List<T>::Node* List<T>::get_tail()
+inline typename List<T>::Node* List<T>::get_tail()
 {
 	return tail;
 }
 
 template<typename T>
-inline List<T>::Node* List<T>::get_next_node_ptr(List<T>::Node* ptr)
+inline typename List<T>::Node* List<T>::get_next_node_ptr(List<T>::Node* ptr)
 {
 	if (ptr->next == nullptr)
 		return ptr;
@@ -172,7 +171,7 @@ inline List<T>::Node* List<T>::get_next_node_ptr(List<T>::Node* ptr)
 }
 
 template<typename T>
-inline List<T>::Node* List<T>::get_prev_node_ptr(List<T>::Node* ptr)
+inline typename List<T>::Node* List<T>::get_prev_node_ptr(List<T>::Node* ptr)
 {
 	if (ptr->prev == nullptr)
 		return ptr;
