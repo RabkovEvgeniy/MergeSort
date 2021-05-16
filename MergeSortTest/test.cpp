@@ -1,5 +1,6 @@
 #include <pch.h>
 #include <List.h>
+#include <exception>
 
 template <typename T>
 class TestList: public List<T>
@@ -170,3 +171,26 @@ TEST(List, pop_back) {
 
 	EXPECT_EQ(real_size_0, exp_size_0);
 }
+
+TEST(List, destructor) {
+
+	//Arrange
+	bool exception_throwed;
+	
+	//Act
+	try {
+		if (true) {
+			TestList<int> list;
+			list.push_front(2);
+			list.push_front(1);
+			list.push_front(0);
+		}
+	}catch(std::exception& ex)
+	{
+		exception_throwed = true;
+	}
+
+	//Assert
+	EXPECT_TRUE(exception_throwed);
+}
+
