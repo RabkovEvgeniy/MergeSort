@@ -16,11 +16,6 @@ public:
 		return this->tail == nullptr;
 	}
 
-	int get_size()
-	{
-		return this->size;
-	}
-
 };
 
 

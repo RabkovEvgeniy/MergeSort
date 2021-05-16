@@ -14,6 +14,9 @@ public:
 
 	void pop_front();
 
+	int get_size();
+	
+
 	~List();
 
 	class Node {
@@ -142,6 +145,12 @@ inline void List<T>::pop_front()
 		throw 2;
 	}
 	size--;
+}
+
+template<typename T>
+inline int List<T>::get_size()
+{
+	return this->size;
 }
 
 template<typename T>
