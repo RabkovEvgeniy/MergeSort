@@ -16,11 +16,6 @@ public:
 		return this->tail == nullptr;
 	}
 
-	int get_size()
-	{
-		return this->size;
-	}
-
 };
 
 
@@ -194,3 +189,43 @@ TEST(List, destructor) {
 	EXPECT_TRUE(exception_throwed);
 }
 
+TEST(List, advance) {
+
+	//Arrange
+	TestList<int> list;
+	
+	list.push_front(1);
+	list.push_back(2);
+
+	int h_val,t_val;
+	int h_t_val,t_h_val;
+
+	const int exp_h_value = 1;
+	const int exp_t_value = 2;
+
+	const int exp_h_t_value = 2;
+	const int exp_t_h_value = 1;
+	
+	List<int>::Node* ptr_h;
+	List<int>::Node* ptr_h_t;
+	List<int>::Node* ptr_t;
+	List<int>::Node* ptr_t_h;
+
+	//Act
+	ptr_h = list.get_head();
+	ptr_t = list.get_tail();
+	
+	h_val = ptr_h->data;
+	t_val = ptr_t->data;
+	
+	//ptr_h_t = List<int>::get_next_node_ptr(ptr_h);
+	ptr_t_h = List<int>::get_prev_node_ptr(ptr_t);
+	//h_t_val = ptr_h_t->data;
+	t_h_val = ptr_t_h->data;
+
+	//Assert
+	EXPECT_EQ(h_val, exp_h_value);
+	EXPECT_EQ(t_val, exp_t_value);
+	//EXPECT_EQ(h_t_val, exp_h_t_value);
+	EXPECT_EQ(t_h_val, exp_t_h_value);
+}

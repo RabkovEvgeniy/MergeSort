@@ -10,10 +10,12 @@ public:
 	void push_front(T data);
 
 	void push_back(T data);
-
 	void pop_back();
 
 	void pop_front();
+
+	int get_size();
+	
 
 	~List();
 
@@ -26,6 +28,14 @@ public:
 		Node* prev;
 		friend List<T>;
 	};
+
+	Node* get_head();
+
+	Node* get_tail();
+
+	static Node* get_next_node_ptr(Node* ptr);
+
+	static Node* get_prev_node_ptr(Node* ptr);
 
 protected:
 	
@@ -138,8 +148,42 @@ inline void List<T>::pop_front()
 }
 
 template<typename T>
+inline int List<T>::get_size()
+{
+	return this->size;
+}
+
+template<typename T>
 inline List<T>::~List()
 {
 	while (size != 0)
 		pop_front();
+}
+
+template<typename T>
+inline typename List<T>::Node* List<T>::get_head(){
+	return head;
+}
+
+template<typename T>
+inline typename List<T>::Node* List<T>::get_tail()
+{
+	return tail;
+}
+
+template<typename T>
+inline typename List<T>::Node* List<T>::get_next_node_ptr(List<T>::Node* ptr)
+{
+	if (ptr->next == nullptr)
+		return ptr;
+	else return ptr->next;
+}
+
+template<typename T>
+inline typename List<T>::Node* List<T>::get_prev_node_ptr(List<T>::Node* ptr)
+{
+	if (ptr->prev == nullptr)
+		return ptr;
+	else return ptr->prev;
+
 }
