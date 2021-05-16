@@ -5,6 +5,8 @@ template <typename T>
 class List
 {
 public:
+	int M;
+	int C;
 	List();
 
 	void push_front(T data);
@@ -68,6 +70,8 @@ inline List<T>::Node::Node(T data)
 template<typename T>
 inline List<T>::List()
 {
+	M = 0;
+	C = 0;
 	size = 0;
 	head = nullptr;
 	tail = nullptr;
@@ -201,19 +205,24 @@ inline int List<T>::get_size()
 template<typename T>
 inline void List<T>::merge(List<T> &A, List<T> &B)
 {
+	M = C = 0;
 	this->clear();
 	while (A.size!=0 || B.size!=0 )
 	{
 		if(A.size == 0)
 		{
+			M++;
 			this->emplace_back_node(B.get_first_node());
 		}
 		else if (B.size == 0)
 		{
+			M++;
 			this->emplace_back_node(A.get_first_node());
 		}
 		else
 		{
+			M++;
+			C++;
 			if(A.head->data > B.head->data)
 				this->emplace_back_node(B.get_first_node());
 			else
