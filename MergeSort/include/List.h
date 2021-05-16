@@ -15,6 +15,8 @@ public:
 
 	void pop_front();
 
+	~List();
+
 	class Node {
 	public:
 		Node(T Data);
@@ -133,4 +135,11 @@ inline void List<T>::pop_front()
 		throw 2;
 	}
 	size--;
+}
+
+template<typename T>
+inline List<T>::~List()
+{
+	while (size != 0)
+		pop_front();
 }
