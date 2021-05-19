@@ -25,7 +25,7 @@ int main()
 	a_sum = A.check_sum();
 	b_sum = B.check_sum();
 	
-	C.merge(A, B);
+	C.merge(A,A.get_size(),B,B.get_size());
 	c_sum = C.check_sum();
 	run_c = C.run_num();
 
@@ -50,7 +50,7 @@ int main()
 	a_sum = A.check_sum();
 	b_sum = B.check_sum();
 
-	C.merge(A, B);
+	C.merge(A, A.get_size(), B, B.get_size());
 	c_sum = C.check_sum();
 	run_c = C.run_num();
 
@@ -63,4 +63,15 @@ int main()
 	std::cout << "run in B = " << run_b << endl;
 	std::cout << "run in C = " << run_c << endl << endl;
 	std::cout << "M + C = " << C.M << " + " << C.C << " = " << C.M + C.C << endl;
+
+	C.clear();
+
+	for (int i = 20; i > 0; i--)
+	{
+		C.push_back(i);
+	}
+	C.print();
+	C.MergeSort();
+	C.print();
+
 }

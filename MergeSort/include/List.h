@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <cmath>
+#include <iostream>
 
 template <typename T>
 class List
@@ -25,7 +27,11 @@ public:
 
 	int get_size();
 	
+	void print();
+
 	void merge(List<T>& A, int ASize, List<T>& B, int BSize);
+
+	void MergeSort();
 
 	~List();
 
@@ -51,12 +57,14 @@ public:
 
 	static Node* get_prev_node_ptr(Node* ptr);
 
+
 protected:
 	
 	Node* head;
 	Node* tail;
 	int size;
 
+	void separate(int n, List<T>& A, List<T>& B);
 
 };
 
@@ -204,10 +212,21 @@ inline int List<T>::get_size()
 }
 
 template<typename T>
+inline void List<T>::print()
+{
+	Node* it = head;
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << it->data << " ";
+		if (it->next != nullptr)
+			it = it->next;
+	}
+	std::cout << std::endl;
+}
+
+template<typename T>
 inline void List<T>::merge(List<T>& A, int ASize, List<T>& B, int BSize)
 {
-	M = C = 0;
-	this->clear();
 	
 	while ((A.size != 0 && ASize != 0) || (B.size != 0 && BSize != 0  ))
 	{
@@ -215,22 +234,39 @@ inline void List<T>::merge(List<T>& A, int ASize, List<T>& B, int BSize)
 		{
 			M++;
 			this->emplace_back_node(B.get_first_node());
+			BSize--;
 		}
 		else if (B.size == 0 || BSize == 0)
 		{
 			M++;
 			this->emplace_back_node(A.get_first_node());
+			ASize--;
 		}
 		else
 		{
 			M++;
 			C++;
-			if(A.head->data > B.head->data)
+			if (A.head->data > B.head->data) {
 				this->emplace_back_node(B.get_first_node());
-			else
+				BSize--;
+			}
+			else {
 				this->emplace_back_node(A.get_first_node());
-
+				ASize--;
+			}
 		}
+	}
+}
+
+template<typename T>
+inline void List<T>::MergeSort()
+{
+	List<T> c1,c2;
+	for (int i = 1; i < size; i*=2)
+	{
+		this->separate(i,c1, c2);
+		while (c1.size != 0 || c2.size != 0)
+			this->merge(c1, i, c2, i);
 	}
 }
 
@@ -309,4 +345,16 @@ inline typename List<T>::Node* List<T>::get_prev_node_ptr(List<T>::Node* ptr)
 		return ptr;
 	else return ptr->prev;
 
+}
+
+template<typename T>
+inline void List<T>::separate(int n, List<T>& A, List<T>& B)
+{
+	for (int i = 0; size!=0;i++)
+	{
+		if ((i / n) % 2 == 0)
+			A.emplace_back_node(this->get_first_node());
+		else
+			B.emplace_back_node(this->get_first_node());
+	}
 }
