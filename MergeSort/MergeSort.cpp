@@ -6,6 +6,7 @@ using namespace std;
 
 int main()
 {
+	cout << "LAB 12.1:" << endl;
 	int a_sum;
 	int b_sum;
 	int c_sum;
@@ -38,7 +39,10 @@ int main()
 	std::cout << "run in B = " << run_b << endl;
 	std::cout << "run in C = " << run_c << endl << endl;
 	std::cout << "M + C = " << C.M << " + " << C.C << " = " <<C.M + C.C << endl << endl << endl << endl;
-	
+	A.clear();
+	B.clear();
+	C.clear();
+
 	for (int i = 0; i < 20; i+=2)
 	{
 		A.push_back(i);
@@ -62,16 +66,57 @@ int main()
 	std::cout << "run in A = " << run_a << endl;
 	std::cout << "run in B = " << run_b << endl;
 	std::cout << "run in C = " << run_c << endl << endl;
-	std::cout << "M + C = " << C.M << " + " << C.C << " = " << C.M + C.C << endl;
-
+	std::cout << "M + C = " << C.M << " + " << C.C << " = " << C.M + C.C << endl << endl;
 	C.clear();
 
-	for (int i = 20; i > 0; i--)
-	{
-		C.push_back(i);
-	}
+	cout << endl << endl;
+	cout << "LAB 12.2:" << endl;
+	std::cout << "-----------------------------------------------------" << endl;
+	std::cout << "-----------------------------------------------------" << endl;
+	std::cout << "-----------------------------------------------------" << endl;
+	C.FillDec(20);
+	cout << "Fill Dec:" << endl;
 	C.print();
+	cout << endl << "Check sum:" << C.check_sum() << endl;
 	C.MergeSort();
+	cout << endl << "Merge Sort:" << endl;
 	C.print();
+	cout << endl << "Check sum:" << C.check_sum() << endl;
+	cout << "Run:" << C.run_num() << endl;
+	C.clear();
 
+	std::cout << "-----------------------------------------------------" << endl;
+	C.FillRund(20);
+	cout << "Fill Inc:" << endl;
+	C.print();
+	cout << endl << "Check sum:" << C.check_sum() << endl;
+	C.MergeSort();
+	cout << endl << "Merge Sort:" << endl;
+	C.print();
+	cout << endl << "Check sum:" << C.check_sum() << endl;
+	cout << "Run:" << C.run_num() << endl;
+	C.clear();
+	std::cout << "-----------------------------------------------------" << endl;
+
+	cout << "n\t\tMergeSort\t" << endl;
+	cout << "\tInc\tDec\tRand\tTeor" << endl;
+
+	for (int i = 100; i < 501; i+=100)
+	{
+		cout << i << "\t";
+		C.FillInc(i);
+		C.MergeSort();
+		cout << C.M + C.C << "\t";
+		C.clear();
+		C.FillDec(i);
+		C.MergeSort();
+		cout << C.M + C.C << "\t";
+		C.clear();
+		C.FillRund(i);
+		C.MergeSort();
+		cout << C.M + C.C << "\t";
+		C.clear();
+		cout << (int)(2 * i * log2(i) + i) << "\t";
+		cout << endl;
+	}
 }

@@ -7,8 +7,8 @@ template <typename T>
 class List
 {
 public:
-	int M;
-	int C;
+	static int M;
+	static int C;
 	List();
 
 	void push_front(T data);
@@ -21,6 +21,10 @@ public:
 
 	void pop_front();
 
+	void FillRund(int size);
+	void FillInc(int size);
+	void FillDec(int size);
+
 	T check_sum();
 
 	int run_num();
@@ -32,8 +36,6 @@ public:
 	void merge(List<T>& A, int ASize, List<T>& B, int BSize);
 
 	void MergeSort();
-
-	~List();
 
 	class Node {
 	public:
@@ -57,16 +59,24 @@ public:
 
 	static Node* get_prev_node_ptr(Node* ptr);
 
-
+	void operator=(List<T>& A);
+	
+	~List();
 protected:
 	
 	Node* head;
 	Node* tail;
 	int size;
-
+	
 	void separate(int n, List<T>& A, List<T>& B);
 
 };
+
+template <typename T>
+int List<T>::C = 0;
+template <typename T>
+int List<T>::M = 0;
+
 
 template<typename T>
 inline List<T>::Node::Node(T data)
@@ -79,8 +89,6 @@ inline List<T>::Node::Node(T data)
 template<typename T>
 inline List<T>::List()
 {
-	M = 0;
-	C = 0;
 	size = 0;
 	head = nullptr;
 	tail = nullptr;
@@ -157,6 +165,7 @@ inline void List<T>::clear()
 {
 	while(size!=0)
 	pop_back();
+	M = C = 0;
 }
 
 template<typename T>
@@ -180,6 +189,33 @@ inline void List<T>::pop_front()
 		throw 2;
 	}
 	size--;
+}
+
+template<typename T>
+inline void List<T>::FillRund(int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		this->push_back(rand() % size);
+	}
+}
+
+template<typename T>
+inline void List<T>::FillInc(int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		this->push_back(i);
+	}
+}
+
+template<typename T>
+inline void List<T>::FillDec(int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		this->push_back(size - i);
+	}
 }
 
 template<typename T>
@@ -261,13 +297,24 @@ inline void List<T>::merge(List<T>& A, int ASize, List<T>& B, int BSize)
 template<typename T>
 inline void List<T>::MergeSort()
 {
-	List<T> c1,c2;
-	for (int i = 1; i < size; i*=2)
+	int max = size, i, j;
+	List<T> c1,c2,a, b;
+	this->separate(1,c1, c2);
+	for (i = 1; i < max; i*=2)
 	{
-		this->separate(i,c1, c2);
+		j = 0;
 		while (c1.size != 0 || c2.size != 0)
-			this->merge(c1, i, c2, i);
+		{
+			if (j % 2 == 0)
+				a.merge(c1, i, c2, i);
+			else
+				b.merge(c1, i, c2, i);
+			j++;
+		}
+		c1 = a;
+		c2 = b;
 	}
+	*this = c1;
 }
 
 template<typename T>
@@ -348,8 +395,19 @@ inline typename List<T>::Node* List<T>::get_prev_node_ptr(List<T>::Node* ptr)
 }
 
 template<typename T>
+inline void List<T>::operator=(List<T>& A)
+{
+	this->head = A.head;
+	this->tail = A.tail;
+	this->size = A.size;
+	A.head = A.tail = nullptr;
+	A.size = 0;
+}
+
+template<typename T>
 inline void List<T>::separate(int n, List<T>& A, List<T>& B)
 {
+	M += size;
 	for (int i = 0; size!=0;i++)
 	{
 		if ((i / n) % 2 == 0)
