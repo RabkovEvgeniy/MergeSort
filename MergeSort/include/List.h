@@ -25,7 +25,7 @@ public:
 
 	int get_size();
 	
-	void merge(List<T> &A, List<T> &B);
+	void merge(List<T>& A, int ASize, List<T>& B, int BSize);
 
 	~List();
 
@@ -56,6 +56,7 @@ protected:
 	Node* head;
 	Node* tail;
 	int size;
+
 
 };
 
@@ -203,18 +204,19 @@ inline int List<T>::get_size()
 }
 
 template<typename T>
-inline void List<T>::merge(List<T> &A, List<T> &B)
+inline void List<T>::merge(List<T>& A, int ASize, List<T>& B, int BSize)
 {
 	M = C = 0;
 	this->clear();
-	while (A.size!=0 || B.size!=0 )
+	
+	while ((A.size != 0 && ASize != 0) || (B.size != 0 && BSize != 0  ))
 	{
-		if(A.size == 0)
+		if(A.size == 0 || ASize == 0)
 		{
 			M++;
 			this->emplace_back_node(B.get_first_node());
 		}
-		else if (B.size == 0)
+		else if (B.size == 0 || BSize == 0)
 		{
 			M++;
 			this->emplace_back_node(A.get_first_node());
